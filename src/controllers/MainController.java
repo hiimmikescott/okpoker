@@ -18,10 +18,7 @@ import java.util.Random;
 import views.MainWindow;
 
 public class MainController {
-    MainWindow mainWindow;
 
-    String[] cards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "B", "D", "K", "A"};
-    
     /* A roundban tároljuk az állapotokat. Az első állapot FIRST */
     enum Round  {
         PREFLOP,
@@ -31,13 +28,22 @@ public class MainController {
         SHOW
     }
 
-    Round round = Round.PREFLOP;
 
-    public MainController(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-        this.initEvent();
-    }
+
+
+    /**
+     * Return a random number from 0 to 12
+     * We have 13 card
+     * @return  int  Random card selection
+     * @see java.util.Random
+     */
+    private int getRandom() {
+        Random random = new Random();
+        return random.nextInt(13);
+    }//A getRandom vége
     
+
+
     /*************** Eseménykezelő kezdete *********************/
     //TODO: A stopBtn majd a következő kört (round) generálja
     public void initEvent() {
@@ -64,7 +70,7 @@ public class MainController {
                     "%d %d\n", hcard1, hcard2);
 
             });
-        this.mainWindow.stopBtn.addActionListener(
+        this.mainWindow.stopBtn.addActionListener (
             event -> {                
                 System.out.println("Állj");
             });
@@ -77,23 +83,27 @@ public class MainController {
          */
         this.mainWindow.nextBtn.addActionListener(
             event -> {
-                // TODO: A kártya színeket is le kell generálni
+                String flop1Str;
+                String flop2Str;
+                String flop3Str;
+
+                /* TODO: A kártya színeket is le kell generálni
+                ♠ ♥ ♦ ♣
+                */
                 if (this.round == Round.PREFLOP) {
                     //flop generálása                    
-                    int flop1 = getRandom();
-                    int flop2 = getRandom();
-                    int flop3 = getRandom();
-                    String flop1Str;
-                    String flop2Str;
-                    String flop3Str;
+                    int flop1=getRandom();
+                    int flop2=getRandom();
+                    int flop3=getRandom();
+
                     
                     //TODO: a jobb oldal mehet rögtön a setText()-be
-                    flop1Str = cards[flop1];
-                    flop2Str = cards[flop2];
-                    flop3Str = cards[flop3];
+                    flop1Str=cards[flop1];
+                    flop2Str=cards[flop2];
+                    flop3Str=cards[flop3];
                     
 
-                    this.mainWindow.flop1Btn.setText(flop1Str);
+                    this.mainWindow.flop1Btn.setText("♦" + flop1Str);
                     this.mainWindow.flop2Btn.setText(flop2Str);
                     this.mainWindow.flop3Btn.setText(flop3Str);
                     this.mainWindow.flop1Btn.setVisible(true);
@@ -107,12 +117,12 @@ public class MainController {
                     int turn = getRandom();
                     this.mainWindow.turnButton.setText(cards[turn]);
                     this.mainWindow.turnButton.setVisible(true);
-                    this.round = Round.TURN;
+                    this.round=Round.TURN;
                     return; //Kilépünk, mert végrehajtódik következő is
                 }//if vége FLOP esetén
                 if (this.round == Round.TURN) {
                     //river generálása
-                    int river = getRandom();
+                    int river=getRandom();
                     this.mainWindow.riverButton.setText(cards[river]);
                     this.mainWindow.riverButton.setVisible(true);
                     this.round = Round.RIVER;
@@ -126,15 +136,14 @@ public class MainController {
         );
 
     }
-    /**
-     * Return a random number from 0 to 12
-     * We have 13 card
-     * @return  int  Random card selection
-     * @see java.util.Random
-     */
-    private int getRandom() {
-        Random random = new Random();
-        return random.nextInt(13);
-    }//A getRandom vége
+
+    public MainController(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+        this.initEvent();
+    }
+
+    MainWindow mainWindow;
+    String[]   cards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "B", "D", "K", "A"};
+    Round      round = Round.PREFLOP;    
 
 }
