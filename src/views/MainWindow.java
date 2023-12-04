@@ -1,6 +1,7 @@
 /*
 * File: MainWindow.java
 * Author: Nagy József
+* Refactored: Szekeres Miklós
 * Copyright: 2021, Nagy József 
 * Date: 2021-09-11
 * Licenc: MIT
@@ -37,7 +38,6 @@ public class MainWindow extends JFrame {
         this.tablePanel.add(flop1Btn);
         this.tablePanel.add(flop2Btn);
         this.tablePanel.add(flop3Btn);
-        /* A flop-nak nem kell megjelennie flop előtti állapotban */
         this.flop1Btn.setVisible(false);
         this.flop2Btn.setVisible(false);
         this.flop3Btn.setVisible(false);

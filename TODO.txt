@@ -1,0 +1,6 @@
+ A stopBtn majd a következő kört (round) generálja
+
+ A kártya színeket is le kell generálni
+                ♠ ♥ ♦ ♣
+
+ a jobb oldal mehet rögtön a setText()-be
